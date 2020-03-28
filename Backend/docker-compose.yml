@@ -1,5 +1,16 @@
 version: '3'
+
 services:
+  api:
+    build: .
+    ports: 
+      - "4000:4000"
+    environment: 
+      PRISMA_ENDPOINT: http://prisma:4466
+    command: npm run dev
+    volumes: 
+      - .:/usr/app
+
   prisma:
     image: prismagraphql/prisma:1.28
     restart: always
@@ -16,6 +27,7 @@ services:
             user: prisma
             password: prisma
             migrations: true
+            
   postgres:
     image: postgres:10.3
     restart: always
@@ -24,5 +36,6 @@ services:
       POSTGRES_PASSWORD: prisma
     volumes:
       - postgres:/var/lib/postgresql/data
+
 volumes:
   postgres:
