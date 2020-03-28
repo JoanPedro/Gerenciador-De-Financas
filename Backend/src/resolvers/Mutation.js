@@ -34,7 +34,7 @@ async function signup(_, args, ctx, info) {
 
 }
 
-async function createAccount(_, { description }, ctx, info) {
+function createAccount(_, { description }, ctx, info) {
   const userId = getUserId(ctx)
   return ctx.db.mutation.createAccount({
     data: {
@@ -48,4 +48,19 @@ async function createAccount(_, { description }, ctx, info) {
   }, info)
 }
 
-module.exports = { signup, login, createAccount }
+function createCategory(_, { description, operation }, ctx, info) {
+  const userId = getUserId(ctx)
+  return ctx.db.mutation.createCategory({
+    data: {
+      description,
+      operation,
+      user: {
+        connect: {
+          id: userId
+        }
+      }
+    }
+  }, info)
+}
+
+module.exports = { signup, login, createAccount, createCategory }
