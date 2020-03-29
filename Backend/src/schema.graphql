@@ -5,7 +5,7 @@ type Query{
   categories(operation: Operation): [ Category! ]!
   records(
     """
-      Month and Year, format "WW-YYYY" e.g: 03-2020
+      Month and Year, format "MM-YYYY" e.g: 03-2020
     """
     month: String,
     type: Operation,
@@ -13,6 +13,10 @@ type Query{
     categoriesIds: [ ID! ]
   ): [ Record! ]!
   user: User
+  """
+    Year, Month and Day, format "YYYY-MM-DD" e.g: 2020-03-29
+  """
+  totalBalance(date: Date!): Float!
 }
 
 type Mutation {
