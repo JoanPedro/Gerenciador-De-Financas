@@ -40,6 +40,33 @@ function categories (_, { operation }, ctx, info){
   }, info)
 }
 
+function records (_, { type, accountsIds, categoriesIds }, ctx, info){
+  const userId = getUserId(ctx)
+  
+  let AND = [ { user: { id: userId } } ]
+  AND = !type ? AND : [ ...AND, { type } ]
+
+  AND = !accountsIds || accountsIds.length === 0 
+    ? AND
+    : [
+      ...AND,
+      { OR: accountsIds.map(id => ({ account: { id } })) }
+  ]
+  
+  AND = !categoriesIds || categoriesIds.length === 0 
+    ? AND
+    : [
+      ...AND,
+      { OR: categoriesIds.map(id => ({ category: { id } })) }
+  ]
+
+  return ctx.db.query.records({
+    where: { AND },
+    orderBy: 'date_ASC'
+  }, info)
+  
+}
+
 function user (_, args, ctx, info){
   const userId = getUserId(ctx)
 
@@ -49,5 +76,6 @@ function user (_, args, ctx, info){
 module.exports = {
   accounts,
   categories,
+  records,
   user
 }
