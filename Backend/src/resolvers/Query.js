@@ -71,10 +71,6 @@ function records (_, { month, type, accountsIds, categoriesIds }, ctx, info){
       { date_gte: startDate },
       { date_lte: endDate }
     ]
-
-    console.log('Base Date: ', date.toISOString())
-    console.log('Start Date: ', startDate)
-    console.log('End Date: ', endDate)
   }
   
   return ctx.db.query.records({
