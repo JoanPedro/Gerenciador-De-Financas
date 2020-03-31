@@ -189,10 +189,10 @@ export default {
       this.isLoading = true
       try {
         await new Promise(resolve => setTimeout(resolve, 1000))
-        const authData = this.isLogin
+        this.isLogin
           ? await AuthService.login(this.user)
           : await AuthService.signup(this.user)
-        console.log('AuthData: ', authData)
+        this.$router.push(this.$route.query.redirect || '/dashboard')
       } catch (e) {
         this.error = formatError(e.message)
         this.showSnackbar = true

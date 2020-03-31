@@ -5,10 +5,10 @@ const { getUserId } = require('./../utils')
 
 const JWT_SECRET = process.env.JWT_SECRET
 
-function createRecord(_, args, ctx, info) {
+function createRecord (_, args, ctx, info) {
 
   const date = moment(args.date) // Ano-Mes-Dia
-  if(!date.isValid()){
+  if (!date.isValid()) {
     throw new Error('Invalide Date!')
   }
 
@@ -19,10 +19,10 @@ function createRecord(_, args, ctx, info) {
         connect: { id: userId }
       },
       account: {
-        connect: {id: args.accountId}
+        connect: { id: args.accountId }
       },
       category: {
-        connect: {id: args.categoryId}
+        connect: { id: args.categoryId }
       },
       amount: args.amount,
       type: args.type,
@@ -35,37 +35,37 @@ function createRecord(_, args, ctx, info) {
   }, info)
 }
 
-async function login(_, { email, password }, ctx, info) {
+async function login (_, { email, password }, ctx, info) {
 
-  const user = await ctx.db.query.user({where: { email }})
-  if(!user) {
-    throw new Error('Invalid credentials!')
+  const user = await ctx.db.query.user({ where: { email } })
+  if (!user) {
+    throw new Error('Credenciais Inválidas!')
   }
 
   const valid = await bcrypt.compare(password, user.password)
-  if(!valid) {
-    throw new Error('Invalid credentials!')
-  }  
+  if (!valid) {
+    throw new Error('Credenciais Inválidas!')
+  }
 
-  const token = jwt.sign({ userId: user.id }, JWT_SECRET,{ expiresIn: '2h' })
+  const token = jwt.sign({ userId: user.id }, JWT_SECRET, { expiresIn: '2h' })
 
   return { token, user }
-  
+
 }
 
-async function signup(_, args, ctx, info) {
+async function signup (_, args, ctx, info) {
 
   const password = await bcrypt.hash(args.password, 10)
-  
+
   const user = await ctx.db.mutation.createUser({ data: { ...args, password } })
 
-  const token = jwt.sign({ userId: user.id }, JWT_SECRET,{ expiresIn: '2h' })
+  const token = jwt.sign({ userId: user.id }, JWT_SECRET, { expiresIn: '2h' })
 
   return { token, user }
 
 }
 
-function createAccount(_, { description }, ctx, info) {
+function createAccount (_, { description }, ctx, info) {
   const userId = getUserId(ctx)
   return ctx.db.mutation.createAccount({
     data: {
@@ -79,7 +79,7 @@ function createAccount(_, { description }, ctx, info) {
   }, info)
 }
 
-function createCategory(_, { description, operation }, ctx, info) {
+function createCategory (_, { description, operation }, ctx, info) {
   const userId = getUserId(ctx)
   return ctx.db.mutation.createCategory({
     data: {
