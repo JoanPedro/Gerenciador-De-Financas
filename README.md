@@ -47,6 +47,9 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 O Gerenciador de Finanças tem como objetivo permitir o controle de gastos ou de receitas do usuário.
 
+## Login:
+![](.github/Login.gif)
+
 ## 🤔 Como contribuir
 
 - Faça um fork desse repositório;
