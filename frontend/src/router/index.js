@@ -2,11 +2,13 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import authRoutes from '@/modules/auth/router/index'
+import dasboardRoutes from '@/modules/dashboard/router'
 
 Vue.use(VueRouter)
 
 const routes = [
   ...authRoutes,
+  ...dasboardRoutes,
   { path: '', redirect: '/login' }
 ]
 

@@ -81,6 +81,22 @@
               @click="submit"
             > {{texts.submiting}} </v-btn>
           </v-card-actions>
+
+          <v-snackbar
+            v-model="showSnackbar"
+            top
+          >
+            {{ error }}
+            <v-btn
+              color="pink"
+              flat
+              icon
+              @click="showSnackbar=false"
+            >
+              <v-icon>close</v-icon>
+            </v-btn>
+          </v-snackbar>
+
         </v-card>
       </v-flex>
 
@@ -91,19 +107,23 @@
 <script>
 import { required, email, minLength } from 'vuelidate/lib/validators'
 import AuthService from './../services/auth-service'
-// import { resolve } from 'dns'
+import { formatError } from '@/utils'
 
 export default {
   name: 'Login',
-  data: () => ({
-    isLogin: true,
-    isLoading: false,
-    user: {
-      name: '',
-      email: '',
-      password: ''
+  data: function () {
+    return {
+      error: undefined,
+      isLogin: true,
+      isLoading: false,
+      showSnackbar: false,
+      user: {
+        name: '',
+        email: '',
+        password: ''
+      }
     }
-  }),
+  },
   validations () {
     const validations = {
       user: {
@@ -168,13 +188,14 @@ export default {
     async submit () {
       this.isLoading = true
       try {
-        await new Promise(resolve => setTimeout(resolve, 2000))
+        await new Promise(resolve => setTimeout(resolve, 1000))
         const authData = this.isLogin
           ? await AuthService.login(this.user)
           : await AuthService.signup(this.user)
         console.log('AuthData: ', authData)
       } catch (e) {
-        console.log(e)
+        this.error = formatError(e.message)
+        this.showSnackbar = true
       } finally {
         this.isLoading = false
       }
