@@ -26,11 +26,10 @@
 
 <br>
 
+## :rocket: Tecnologias 
 <p align="center">
-  <img alt="Frontend" src=".github/heroes.png" width="50%">
+    <img alt="Backend" src="https://img.shields.io/badge/Backend-Finalizado-success">
 </p>
-
-## :rocket: Tecnologias
 
 Esse projeto foi desenvolvido com as seguintes tecnologias:
 
@@ -63,4 +62,3 @@ Depois que o merge da sua pull request for feito, você pode deletar a sua branc
 
 Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE.md) para mais detalhes.
 
-## Feito Por: Joan Pedro Oliveira de Souza
