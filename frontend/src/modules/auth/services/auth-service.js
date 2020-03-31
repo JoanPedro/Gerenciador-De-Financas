@@ -1,4 +1,4 @@
-import apollo from '@/plugins/apollo'
+import apollo, { onLogin } from '@/plugins/apollo'
 import LoginMutation from './../graphql/Login.graphql'
 
 const login = async variables => {
@@ -6,7 +6,9 @@ const login = async variables => {
     mutation: LoginMutation,
     variables
   })
-  return res.data.login
+  const { login } = res.data
+  await onLogin(apollo, login)
+  return login
 }
 
 export default {
