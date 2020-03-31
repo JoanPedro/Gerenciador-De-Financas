@@ -188,7 +188,6 @@ export default {
     async submit () {
       this.isLoading = true
       try {
-        await new Promise(resolve => setTimeout(resolve, 1000))
         this.isLogin
           ? await AuthService.login(this.user)
           : await AuthService.signup(this.user)
