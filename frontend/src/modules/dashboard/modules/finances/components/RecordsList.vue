@@ -9,9 +9,23 @@
 
     <v-card>
 
+      <v-card-text
+        class="text-center"
+        v-if="mappedRecordsLenght === 0"
+      >
+        <v-icon
+          size="100"
+          color="grey"
+        >assignment</v-icon>
+        <p class="font-weight-lighht subheading grey--text">
+          Nenhum lançamento no período
+        </p>
+      </v-card-text>
+
       <v-list
         two-line
         subheader
+        v-else
       >
         <template v-for="(records, date, index) in mappedRecords">
 
@@ -74,6 +88,9 @@ export default {
         return moment(record[dateKey]).add(1, 'days').format('DD/MM/YYYY')
         // add(1, days) maybe can removed, its test because this return -1 day of realy input
       })
+    },
+    mappedRecordsLenght () {
+      return Object.keys(this.mappedRecords).length
     },
     totalAmount () {
       return this.records.reduce((sum, record) => sum + record.amount, 0)
