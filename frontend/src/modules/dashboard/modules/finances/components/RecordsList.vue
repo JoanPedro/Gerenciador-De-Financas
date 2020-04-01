@@ -5,6 +5,8 @@
       class="mb-2"
       format="MM-YYYY"
       @month="changeMonth"
+      :color="toolbarColor"
+      :month="$route.query.month"
     />
 
     <v-card>
@@ -94,11 +96,17 @@ export default {
     },
     totalAmount () {
       return this.records.reduce((sum, record) => sum + record.amount, 0)
+    },
+    toolbarColor () {
+      return this.totalAmount < 0 ? 'error' : 'primary'
     }
   },
   methods: {
     changeMonth (month) {
-      console.log('Contexto month: ', month)
+      this.$router.push({
+        path: this.$route.path,
+        query: { month }
+      })
       this.setRecords(month)
     },
     async setRecords (month) {
