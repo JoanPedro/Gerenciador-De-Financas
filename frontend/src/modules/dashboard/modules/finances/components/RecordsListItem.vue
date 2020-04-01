@@ -15,15 +15,19 @@
     </v-list-item-content>
 
     <v-list-item-action>
-      <span :class="amountColor(record.amount)">{{ record.amount }}</span>
+      <span :class="amountColor(record.amount)">{{ formatCurrency(record.amount) }}</span>
     </v-list-item-action>
 
   </v-list-item>
 </template>
 
 <script>
+import formatCurrencyMixin from '@/mixins/format-currency'
 export default {
   name: 'RecordsListItem',
+  mixins: [
+    formatCurrencyMixin
+  ],
   props: {
     record: Object
   },
