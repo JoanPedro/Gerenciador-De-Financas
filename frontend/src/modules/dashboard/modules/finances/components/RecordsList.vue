@@ -1,7 +1,11 @@
 <template>
   <div>
 
-    <ToolbarByMonth class="mb-2" />
+    <ToolbarByMonth
+      class="mb-2"
+      format="MM-YYYY"
+      @month="changeMonth"
+    />
 
     <v-card>
 
@@ -75,10 +79,14 @@ export default {
       return this.records.reduce((sum, record) => sum + record.amount, 0)
     }
   },
-  async created () {
-    this.records = await RecordsService.records()
-  },
   methods: {
+    changeMonth (month) {
+      console.log('Contexto month: ', month)
+      this.setRecords(month)
+    },
+    async setRecords (month) {
+      this.records = await RecordsService.records({ month })
+    },
     showDivider (index, object) {
       return index < Object.keys(object).length - 1
     }
