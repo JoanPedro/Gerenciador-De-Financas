@@ -1,3 +1,3 @@
 <template>
-  <h1>Bem vindo ao Dashboard!</h1>
+  <h1>Oi222</h1>
 </template>
