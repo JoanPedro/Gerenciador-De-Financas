@@ -14,7 +14,7 @@ query RecordsByMonth(
   ) {
     id
     type
-    amout
+    amount
     date
     description
     note

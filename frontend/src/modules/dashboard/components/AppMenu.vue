@@ -19,10 +19,7 @@
         </v-list-item-action>
       </v-list-item>
 
-      <v-list-item
-        avatar
-        tag="div"
-      >
+      <v-list-item tag="div">
 
         <v-list-item-avatar>
           <v-icon>person</v-icon>

@@ -4,31 +4,31 @@ import SignUpMutation from './../graphql/SignUp.graphql'
 import UserQuery from './../graphql/User.graphql'
 
 const login = async variables => {
-  const res = await apollo.mutate({
+  const response = await apollo.mutate({
     mutation: LoginMutation,
     variables
   })
-  const { login } = res.data
+  const { login } = response.data
   await onLogin(apollo, login.token)
   return login
 }
 
 const signup = async variables => {
-  const res = await apollo.mutate({
+  const response = await apollo.mutate({
     mutation: SignUpMutation,
     variables
   })
-  const { signup } = res.data
+  const { signup } = response.data
   await onLogin(apollo, signup.token)
   return signup
 }
 
 const user = async (options = {}) => {
-  const res = await apollo.query({
+  const response = await apollo.query({
     query: UserQuery,
     ...options
   })
-  return res.data.user
+  return response.data.user
 }
 
 export default {

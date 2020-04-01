@@ -1,6 +1,16 @@
 import { ApolloClient, ApolloLink, HttpLink, InMemoryCache } from 'apollo-boost'
+import { onError } from 'apollo-link-error'
 
 const AUTH_TOKEN = 'apollo-token'
+
+const errorLink = onError(({ graphQLErrors, networkError }) => {
+  if (graphQLErrors) {
+    console.log('graphQLErrors', graphQLErrors)
+  }
+  if (networkError) {
+    console.log('networkError', networkError)
+  }
+})
 
 const resetApolloClient = async apollo => {
   try {
@@ -35,6 +45,7 @@ const authLink = new ApolloLink((operation, forward) => {
 const apollo = new ApolloClient({
   // link: authLink.concat(link),
   link: ApolloLink.from([
+    errorLink,
     authLink,
     link
   ]),

@@ -18,9 +18,9 @@
             color="primary"
             dark
           >
-            <v-tollbar-title>
+            <v-toolbar-title>
               {{texts.toolbar}}
-            </v-tollbar-title>
+            </v-toolbar-title>
             <v-spacer></v-spacer>
             <v-progress-circular
               v-show="isLoading"

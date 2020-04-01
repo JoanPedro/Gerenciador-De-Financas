@@ -1,5 +1,5 @@
 <template>
-  <v-list-item avatar>
+  <v-list-item>
 
     <v-list-item-avatar>
       <v-icon :class="[ recordIconColor(record.type), 'lighten-1 white--text' ]">
