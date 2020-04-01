@@ -1,5 +1,5 @@
-const Dashboard = () => import('./../views/Dashboard.vue')
 import financesRoutes from './../modules/finances/router'
+const Dashboard = () => import('./../views/Dashboard.vue')
 
 export default [
   {
