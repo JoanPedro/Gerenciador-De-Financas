@@ -13,7 +13,7 @@ const createRecord = async variables => {
     update: (proxy, { data: { createRecord } }) => {
       const month = moment(createRecord.date.substr(0, 10)).format('MM-YYYY')
       const variables = { month }
-
+      // Records
       try {
         const recordsData = proxy.readQuery({
           query: RecordsQuery,
@@ -28,6 +28,30 @@ const createRecord = async variables => {
         })
       } catch (e) {
         console.log('Query "records" has not been read yet!', e)
+      }
+
+      // Total balance
+      try {
+        const currentDate = moment().endOf('day')
+        const recordDate = moment(createRecord.date.substr(0, 10))
+        const variables = { date: currentDate.format('YYYY-MM-DD') }
+
+        if (recordDate.isBefore(currentDate)) {
+          const totalBalanceData = proxy.readQuery({
+            query: TotalBalanceQuery,
+            variables
+          })
+
+          totalBalanceData.totalBalance = +(totalBalanceData.totalBalance + createRecord.amount).toFixed(2)
+
+          proxy.writeQuery({
+            query: TotalBalanceQuery,
+            variables,
+            data: totalBalanceData
+          })
+        }
+      } catch (e) {
+        console.log('Query "totalBalance" has not been read yet!', e)
       }
     }
   })
