@@ -24,6 +24,7 @@
           <v-btn
             :color="color"
             class="headline"
+            @click="change(btn, 'add')"
           > {{ btn }} </v-btn>
         </v-flex>
 
@@ -31,7 +32,10 @@
           xs4
           pa-2
         >
-          <v-btn icon>
+          <v-btn
+            icon
+            @click="change"
+          >
             <v-icon>backspace</v-icon>
           </v-btn>
         </v-flex>
@@ -61,6 +65,16 @@ export default {
   computed: {
     display () {
       return this.formatCurrency(this.value || 0)
+    }
+  },
+  methods: {
+    change (btnValue, operation) {
+      const currentValue = this.value.toFixed(2) // 0.00
+      const total =
+        operation === 'add'
+          ? (+(currentValue + btnValue) * 10)
+          : (+(currentValue.slice(0, -1)) / 10)
+      this.$emit('input', total)
     }
   }
 }
