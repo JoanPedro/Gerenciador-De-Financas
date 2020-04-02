@@ -11,11 +11,11 @@ const records = async variables => {
   return res.data.records
 }
 
-const TotalBalance = async () => {
+const totalBalance = async () => {
   const res = await apollo.query({
     query: TotalBalanceQuery,
     variables: {
-      date: moment().format('YYYY/MM/DD')
+      date: moment().format('YYYY-MM-DD')
     }
   })
   return res.data.totalBalance
@@ -23,5 +23,5 @@ const TotalBalance = async () => {
 
 export default {
   records,
-  TotalBalance
+  totalBalance
 }
