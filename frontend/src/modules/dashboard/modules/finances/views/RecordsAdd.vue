@@ -20,6 +20,7 @@
         lg8
       >
         <p>Formulário</p>
+        <v-btn @click="log">Log</v-btn>
       </v-flex>
 
     </v-layout>
@@ -27,14 +28,42 @@
 </template>
 
 <script>
+import moment from 'moment'
+import { decimal, minLength, required } from 'vuelidate/lib/validators'
 import { mapActions } from 'vuex'
 export default {
   name: 'RecordsAdd',
+  data () {
+    return {
+      record: {
+        type: this.$route.query.type.toUpperCase(),
+        amount: 0,
+        date: moment().format('YYYY-MM-DD'), // 2020-04-18
+        accountId: '',
+        categoryId: '',
+        description: '',
+        tags: '',
+        note: ''
+      }
+    }
+  },
+  validations: {
+    record: {
+      type: { required },
+      amount: { required, decimal, different: value => value !== 0 },
+      date: { required },
+      accountId: { required },
+      categoryId: { required },
+      description: { required, minLength: minLength(6) }
+    }
+  },
   created () {
     this.changeTitle(this.$route.query.type)
   },
   beforeRouteUpdate (to, from, next) {
-    this.changeTitle(to.query.type)
+    const { type } = to.query
+    this.changeTitle(type)
+    this.record.type = type.toUpperCase()
     next()
   },
   methods: {
@@ -53,6 +82,9 @@ export default {
           break
       }
       this.setTitle({ title })
+    },
+    log () {
+      console.log('Form: ', this.record)
     }
   }
 }
