@@ -13,7 +13,7 @@
 import { mapState } from 'vuex'
 export default {
   name: 'AppToolbar',
-  propos: {
+  props: {
     show: Boolean
   },
   model: {
