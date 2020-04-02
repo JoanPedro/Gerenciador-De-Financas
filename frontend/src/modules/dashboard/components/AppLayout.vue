@@ -10,17 +10,22 @@
         </v-flex>
       </v-layout>
     </v-container>
+
+    <AppFloatingButton />
+
   </div>
 </template>
 
 <script>
-import AppToolbar from './AppToolbar'
+import AppFloatingButton from './AppFloatingButton'
 import AppMenu from './AppMenu'
+import AppToolbar from './AppToolbar'
 export default {
   name: 'AppLayout',
   components: {
-    AppToolbar,
-    AppMenu
+    AppFloatingButton,
+    AppMenu,
+    AppToolbar
   },
   data: function () {
     return {
