@@ -1,0 +1,44 @@
+# import * from './Operation.graphql' 
+
+mutation RecordCreate (
+  $type: Operation!,
+  $amount: Float!,
+  $accountId: ID!,
+  $categoryId: ID!,
+  $date: Date!,
+  $description: String!,
+  $tags: String,
+  $note: String
+){
+  createRecord (
+    type: $type
+    amount: $amount
+    accountId: $accountId
+    categoryId: $categoryId
+    date: $date
+    description: $description
+    tags: $tags
+    note: $note
+  ) {
+    id
+    type
+    amount
+    date
+    description
+    note
+    account {
+      id
+      description
+    }
+    category {
+      id
+      description
+      operation
+    }
+    user {
+      id
+      name
+      email
+    }
+  }
+}
