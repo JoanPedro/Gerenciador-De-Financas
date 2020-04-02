@@ -98,8 +98,7 @@ export default {
   computed: {
     mappedRecords () {
       return groupBy(this.records, 'date', (record, dateKey) => {
-        return moment(record[dateKey]).add(1, 'days').format('DD/MM/YYYY')
-        // add(1, days) maybe can removed, its test because this return -1 day of realy input
+        return moment(record[dateKey].substr(0, 10)).format('DD/MM/YYYY')
       })
     },
     mappedRecordsLenght () {
