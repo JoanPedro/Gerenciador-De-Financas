@@ -3,6 +3,8 @@ import moment from 'moment'
 import RecordCreateMutation from './../graphql/RecordCreate.graphql'
 import RecordsQuery from './../graphql/Records.graphql'
 import TotalBalanceQuery from './../graphql/TotalBalance.graphql'
+import { from } from 'rxjs'
+import { map } from 'rxjs/operators'
 
 const createRecord = async variables => {
   const res = await apollo.mutate({
@@ -12,12 +14,15 @@ const createRecord = async variables => {
   return res.data.createRecord
 }
 
-const records = async variables => {
-  const res = await apollo.query({
+const records = variables => {
+  const queryRef = apollo.watchQuery({
     query: RecordsQuery,
     variables
   })
-  return res.data.records
+  return from(queryRef)
+    .pipe(
+      map(res => res.data.records)
+    )
 }
 
 const totalBalance = async () => {

@@ -66,12 +66,15 @@
 <script>
 import moment from 'moment'
 import { groupBy } from '@/utils'
+import { Subject } from 'rxjs'
+import { mergeMap } from 'rxjs/operators'
 import amountColorMixin from './../mixins/amount-color'
 import formatCurrencyMixin from '@/mixins/format-currency'
 import RecordsListItem from './RecordsListItem.vue'
 import RecordsService from './../services/records-service'
 import ToolbarByMonth from './ToolbarByMonth.vue'
 import TotalBalance from './TotalBalance.vue'
+
 export default {
   name: 'RecordsList',
   components: {
@@ -85,8 +88,12 @@ export default {
   ],
   data: function () {
     return {
-      records: []
+      records: [],
+      monthSubject$: new Subject()
     }
+  },
+  created () {
+    this.setRecords()
   },
   computed: {
     mappedRecords () {
@@ -111,10 +118,15 @@ export default {
         path: this.$route.path,
         query: { month }
       })
-      this.setRecords(month)
+      this.monthSubject$.next({ month })
     },
-    async setRecords (month) {
-      this.records = await RecordsService.records({ month })
+    setRecords (month) {
+      console.log('Subscribing...')
+
+      this.monthSubject$
+        .pipe(
+          mergeMap(variables => RecordsService.records(variables))
+        ).subscribe(records => (this.records = records))
     },
     showDivider (index, object) {
       return index < Object.keys(object).length - 1
