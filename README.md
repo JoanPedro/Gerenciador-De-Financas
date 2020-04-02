@@ -49,6 +49,9 @@ O Gerenciador de Finanças tem como objetivo permitir o controle de gastos ou de
 ## Login:
 ![](.github/Login.gif)
 
+## Dashboard Inicial:
+![](.github/DashboardInicial.gif)
+
 ## 🤔 Como contribuir
 
 - Faça um fork desse repositório;
