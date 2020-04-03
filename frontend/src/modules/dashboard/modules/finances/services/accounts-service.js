@@ -16,13 +16,13 @@ const accounts = () => {
 }
 
 const createAccount = async variables => {
-  const res = await apollo.mutation({
+  const res = await apollo.mutate({
     mutation: AccountCreateMutation,
     variables,
     update: (proxy, { data: { createAccount } }) => {
       try {
         const data = proxy.readQuery({
-          AccountsQuery
+          query: AccountsQuery
         })
         data.accounts = [...data.accounts, createAccount]
         proxy.writeQuery({
