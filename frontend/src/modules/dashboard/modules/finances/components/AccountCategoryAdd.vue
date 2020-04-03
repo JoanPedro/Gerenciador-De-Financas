@@ -42,11 +42,11 @@ export default {
   props: {
     entity: String
   },
-  data: function () {
+  data () {
     return {
       item: {
         description: '',
-        operation: ''
+        operation: this.$route.query.type.toUpperCase()
       },
       operations: [
         { description: 'Receita', value: 'CREDIT' },
