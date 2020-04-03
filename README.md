@@ -52,6 +52,15 @@ O Gerenciador de Finanças tem como objetivo permitir o controle de gastos ou de
 ## Dashboard Inicial:
 ![](.github/DashboardInicial.gif)
 
+## Nova Receita/Despesa
+![](.github/Demonstra2Dash.gif)
+
+## Nova Receita
+![](.github/NovaReceita.gif)
+
+## Nova Despesa
+![](.github/NovaDespesa.gif)
+
 ## 🤔 Como contribuir
 
 - Faça um fork desse repositório;
