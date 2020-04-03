@@ -1,11 +1,7 @@
+#import './AccountFragment.graphql'
+
 query Accounts {
   accounts {
-    id
-    description
-    user {
-      id
-      name
-      email
-    }
+    ...AccountFragment
   }
 }

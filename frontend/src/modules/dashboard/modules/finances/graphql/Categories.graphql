@@ -1,14 +1,8 @@
+#import './CategoryFragment.graphql'
 # import * from './Operation.graphql'
 
 query Categories ($operation: Operation) {
   categories(operation: $operation) {
-    id
-    description
-    operation
-    user {
-      id
-      name
-      email
-    }
+    ...CategoryFragment
   }
 }

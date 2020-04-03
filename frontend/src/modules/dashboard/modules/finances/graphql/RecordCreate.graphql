@@ -1,3 +1,4 @@
+#import './RecordFragment.graphql'
 # import * from './Operation.graphql' 
 
 mutation RecordCreate (
@@ -20,25 +21,6 @@ mutation RecordCreate (
     tags: $tags
     note: $note
   ) {
-    id
-    type
-    amount
-    date
-    description
-    note
-    account {
-      id
-      description
-    }
-    category {
-      id
-      description
-      operation
-    }
-    user {
-      id
-      name
-      email
-    }
+    ...RecordFragment
   }
 }
