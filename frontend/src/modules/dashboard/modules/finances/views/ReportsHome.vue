@@ -24,6 +24,7 @@
       <v-card>
         <v-card-text>
           <h2 class="font-weight-light mb-4">{{ chart.title }}</h2>
+          <canvas :ref="chart.refId"></canvas>
         </v-card-text>
       </v-card>
     </v-flex>
@@ -32,9 +33,11 @@
 </template>
 
 <script>
+import Chart from 'chart.js'
 import { mapState, mapActions } from 'vuex'
 import { Subject } from 'rxjs'
 import { mergeMap } from 'rxjs/operators'
+import { generateChartConfigs } from '@/utils'
 import RecordsService from './../services/records-service'
 import ToolbarByMonth from './../components/ToolbarByMonth.vue'
 
@@ -45,9 +48,10 @@ export default {
   },
   data: function () {
     return {
+      chartIncomesExpenses: undefined,
       charts: [
-        { title: 'Receitas vs Despesas' },
-        { title: 'Despesas por Categoria' }
+        { title: 'Receitas vs Despesas', refId: 'chartIncomesExpenses' },
+        { title: 'Despesas por Categoria', refId: 'chartCategoryExpenses' }
       ],
       monthSubject$: new Subject(),
       records: [],
@@ -75,6 +79,33 @@ export default {
       this.setMonth({ month })
       this.monthSubject$.next(month)
     },
+    createChart (chartId, options) {
+      const ref = Array.isArray(this.$refs[chartId])
+        ? this.$refs[chartId][0]
+        : this.$refs[chartId]
+      const ctx = ref.getContext('2d')
+      return new Chart(ctx, options)
+    },
+    setCharts () {
+      const chartIncomesExpensesConfigs = generateChartConfigs({
+        type: 'bar',
+        items: this.records,
+        keyToGroup: 'type',
+        keyOfValue: 'amount',
+        aliases: { CREDIT: 'Receitas', DEBIT: 'Despesas' },
+        backgroundColors: [
+          '#C2185B',
+          '#00897B'
+        ]
+      })
+      if (this.chartIncomesExpenses) {
+        this.chartIncomesExpenses.data.datasets = chartIncomesExpensesConfigs.data.datasets
+        this.chartIncomesExpenses.update()
+      } else {
+        this.chartIncomesExpenses =
+          this.createChart('chartIncomesExpenses', chartIncomesExpensesConfigs)
+      }
+    },
     setRecords () {
       this.subscriptions.push(
         this.monthSubject$
@@ -82,7 +113,7 @@ export default {
             mergeMap(month => RecordsService.records({ month }))
           ).subscribe(records => {
             this.records = records
-            console.log('Records: ', this.records)
+            this.setCharts()
           })
       )
     }
