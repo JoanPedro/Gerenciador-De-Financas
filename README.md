@@ -28,8 +28,12 @@
 
 ## :rocket: Tecnologias 
 <p align="center">
-    <a href="https://github.com/JoanPedro/Gerenciador-De-Financas/tree/master/Backend" alt="Backend" src="https://img.shields.io/badge/Backend-Finalizado-success">
-    <a href="https://github.com/JoanPedro/Gerenciador-De-Financas/tree/master/frontend" alt="Frontend" src="https://img.shields.io/badge/Frontend-Finalizado-success">
+    <a href="https://github.com/JoanPedro/Gerenciador-De-Financas/tree/master/Backend"> 
+      <img alt="Backend" src="https://img.shields.io/badge/Backend-Finalizado-success">
+    </a>
+    <a href="https://github.com/JoanPedro/Gerenciador-De-Financas/tree/master/frontend">
+      <img alt="Frontend" src="https://img.shields.io/badge/Frontend-Finalizado-success">
+    </a>
 </p>
 
 Esse projeto foi desenvolvido com as seguintes tecnologias:
