@@ -3,7 +3,7 @@
     <v-layout align-center>
 
       <v-flex xs1>
-        <div class="text-xs-left">
+        <div class="text-left">
           <v-btn
             icon
             text
@@ -14,14 +14,30 @@
         </div>
       </v-flex>
 
-      <v-flex xs10>
+      <v-flex
+        xs8
+        offset-xs1
+      >
         <v-toolbar-title class="text-center">
           <span> {{ currentMonth }}</span>
         </v-toolbar-title>
       </v-flex>
 
-      <v-flex xs1>
-        <div class="text-xs-right">
+      <v-flex
+        xs1
+        text-xs-right
+        v-if="showSlot"
+      >
+
+        <slot />
+
+      </v-flex>
+
+      <v-flex
+        xs1
+        :class="arrowRightClass "
+      >
+        <div class="text-right">
           <v-btn
             icon
             text
@@ -44,7 +60,11 @@ export default {
   props: {
     color: String,
     format: String,
-    month: String
+    month: String,
+    showSlot: {
+      type: Boolean,
+      default: false
+    }
   },
   data: function () {
     return {
@@ -52,6 +72,9 @@ export default {
     }
   },
   computed: {
+    arrowRightClass () {
+      return !this.showSlot ? 'offset-xs1' : ''
+    },
     currentMonth () {
       return this.date.format('MMMM YYYY')
     }
