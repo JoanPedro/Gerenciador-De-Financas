@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators'
 import CategoriesQuery from './../graphql/Categories.graphql'
 import CategoryCreateMutation from './../graphql/CategoryCreate.graphql'
 
-const categories = ({ operation }) => {
+const categories = ({ operation } = {}) => {
   const queryRef = apollo.watchQuery({
     query: CategoriesQuery,
     variables: { operation: operation ? operation.toUpperCase() : operation }
