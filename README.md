@@ -28,7 +28,8 @@
 
 ## :rocket: Tecnologias 
 <p align="center">
-    <img alt="Backend" src="https://img.shields.io/badge/Backend-Finalizado-success">
+    <a href="https://github.com/JoanPedro/Gerenciador-De-Financas/tree/master/Backend" alt="Backend" src="https://img.shields.io/badge/Backend-Finalizado-success">
+    <a href="https://github.com/JoanPedro/Gerenciador-De-Financas/tree/master/frontend" alt="Frontend" src="https://img.shields.io/badge/Frontend-Finalizado-success">
 </p>
 
 Esse projeto foi desenvolvido com as seguintes tecnologias:
@@ -63,6 +64,9 @@ O Gerenciador de Finanças tem como objetivo permitir o controle de gastos ou de
 
 ## Filtros
 ![](.github/Filtros.gif)
+
+## Gráficos
+![](.github/Graficos.gif)
 
 ## 🤔 Como contribuir
 
