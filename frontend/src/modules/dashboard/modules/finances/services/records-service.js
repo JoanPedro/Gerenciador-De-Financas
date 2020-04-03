@@ -5,6 +5,7 @@ import RecordsQuery from './../graphql/Records.graphql'
 import TotalBalanceQuery from './../graphql/TotalBalance.graphql'
 import { from } from 'rxjs'
 import { map } from 'rxjs/operators'
+import md5 from 'md5'
 
 const createRecord = async variables => {
   const res = await apollo.mutate({
@@ -13,6 +14,7 @@ const createRecord = async variables => {
     update: (proxy, { data: { createRecord } }) => {
       const month = moment(createRecord.date.substr(0, 10)).format('MM-YYYY')
       const variables = { month }
+
       // Records
       try {
         const recordsData = proxy.readQuery({
@@ -58,11 +60,26 @@ const createRecord = async variables => {
   return res.data.createRecord
 }
 
+const recordsWatchedQueries = {
+
+}
+
 const records = variables => {
-  const queryRef = apollo.watchQuery({
-    query: RecordsQuery,
-    variables
-  })
+  const hashKey = md5(Object
+    .keys(variables)
+    .map(k => variables[k])
+    .join('_'))
+
+  let queryRef = recordsWatchedQueries[hashKey]
+
+  if (!queryRef) {
+    queryRef = apollo.watchQuery({
+      query: RecordsQuery,
+      variables
+    })
+    recordsWatchedQueries[hashKey] = queryRef
+  }
+
   return from(queryRef)
     .pipe(
       map(res => res.data.records)

@@ -13,6 +13,7 @@
     "core-js": "^3.6.4",
     "graphql": "^14.6.0",
     "material-design-icons-iconfont": "^5.0.1",
+    "md5": "^2.2.1",
     "moment": "^2.24.0",
     "roboto-fontface": "*",
     "rxjs": "^6.5.4",
