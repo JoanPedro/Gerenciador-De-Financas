@@ -6,9 +6,9 @@
     <v-flex xs12>
       <ToolbarByMonth
         format="MM-YYYY"
-        color="primary"
         :month="month || $route.query.month"
         @month="changeMonth"
+        :color="color"
       />
     </v-flex>
 
@@ -49,6 +49,7 @@ export default {
   data: function () {
     return {
       chartIncomesExpenses: undefined,
+      chartCategoryExpenses: undefined,
       charts: [
         { title: 'Receitas vs Despesas', refId: 'chartIncomesExpenses' },
         { title: 'Despesas por Categoria', refId: 'chartCategoryExpenses' }
@@ -59,7 +60,15 @@ export default {
     }
   },
   computed: {
-    ...mapState('finances', ['month'])
+    ...mapState('finances', ['month']),
+    recordsSum () {
+      return this.records.reduce((acc, record) => acc + record.amount, 0)
+    },
+    color () {
+      return this.recordsSum < 0
+        ? 'error'
+        : 'primary'
+    }
   },
   created () {
     this.setTitle({ title: 'Relatórios ' })
@@ -79,15 +88,27 @@ export default {
       this.setMonth({ month })
       this.monthSubject$.next(month)
     },
-    createChart (chartId, options) {
+    updateOrCreateChart (chartId, options) {
+      if (this[chartId]) {
+        this[chartId].data.datasets = options.data.datasets
+        if (options.data.labels) {
+          this[chartId].data.labels = options.data.labels
+        }
+
+        this[chartId].update()
+        return this[chartId]
+      }
+
       const ref = Array.isArray(this.$refs[chartId])
         ? this.$refs[chartId][0]
         : this.$refs[chartId]
       const ctx = ref.getContext('2d')
-      return new Chart(ctx, options)
+      this[chartId] = new Chart(ctx, options)
+      return this[chartId]
     },
     setCharts () {
-      const chartIncomesExpensesConfigs = generateChartConfigs({
+      // Receitas e Despesas
+      this.updateOrCreateChart('chartIncomesExpenses', generateChartConfigs({
         type: 'bar',
         items: this.records,
         keyToGroup: 'type',
@@ -97,14 +118,15 @@ export default {
           '#C2185B',
           '#00897B'
         ]
-      })
-      if (this.chartIncomesExpenses) {
-        this.chartIncomesExpenses.data.datasets = chartIncomesExpensesConfigs.data.datasets
-        this.chartIncomesExpenses.update()
-      } else {
-        this.chartIncomesExpenses =
-          this.createChart('chartIncomesExpenses', chartIncomesExpensesConfigs)
-      }
+      }))
+
+      // Despesas por categora
+      this.updateOrCreateChart('chartCategoryExpenses', generateChartConfigs({
+        type: 'doughnut',
+        items: this.records.filter(r => r.type === 'DEBIT'),
+        keyToGroup: 'category.description',
+        keyOfValue: 'amount'
+      }))
     },
     setRecords () {
       this.subscriptions.push(
