@@ -88,7 +88,7 @@
           >
             {{ error }}
             <v-btn
-              color="pink"
+              color="error"
               flat
               icon
               @click="showSnackbar=false"
