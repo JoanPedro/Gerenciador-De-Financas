@@ -1,11 +1,18 @@
 import apollo from '@/plugins/apollo'
+import { from } from 'rxjs'
+import { map } from 'rxjs/operators'
 import AccountCreateMutation from './../graphql/AccountCreate.graphql'
 import AccountsQuery from './../graphql/Accounts.graphql'
-const accounts = async () => {
-  const res = await apollo.query({
+
+const accounts = () => {
+  const queryRef = apollo.watchQuery({
     query: AccountsQuery
   })
-  return res.data.accounts
+
+  return from(queryRef)
+    .pipe(
+      map(res => res.data.accounts)
+    )
 }
 
 const createAccount = async variables => {
