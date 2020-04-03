@@ -115,8 +115,8 @@ export default {
         keyOfValue: 'amount',
         aliases: { CREDIT: 'Receitas', DEBIT: 'Despesas' },
         backgroundColors: [
-          '#C2185B',
-          '#00897B'
+          '#00897B',
+          '#C2185B'
         ]
       }))
 
