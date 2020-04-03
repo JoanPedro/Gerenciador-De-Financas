@@ -1,5 +1,5 @@
 <h1 align="center">
-    <img alt="Gerenciador De Finanças" title="#FinancesManager" src="" width="250px" />
+    <img alt="Gerenciador De Finanças" title="#FinancesManager" src="Gerenciador-De-Financas" width="250px" />
 </h1>
 
 <h4 align="center">
