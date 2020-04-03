@@ -61,6 +61,9 @@ O Gerenciador de Finanças tem como objetivo permitir o controle de gastos ou de
 ## Nova Despesa
 ![](.github/NovaDespesa.gif)
 
+## Filtros
+![](.github/Filtros.gif)
+
 ## 🤔 Como contribuir
 
 - Faça um fork desse repositório;
