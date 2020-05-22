@@ -36,7 +36,11 @@
     </a>
 </p>
 
-Esse projeto foi desenvolvido com as seguintes tecnologias:
+## 💻 Projeto
+
+O Gerenciador de Finanças tem como objetivo permitir o controle de gastos ou de receitas do usuário.
+
+Este projeto foi desenvolvido com as seguintes tecnologias:
 
 - [Node.js](https://nodejs.org/en/)
 - [Vue](https://vuejs.org/)
@@ -47,9 +51,11 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 - [postgreSQL](https://www.postgresql.org/)
 - [Docker](https://www.docker.com/)
 
-## 💻 Projeto
-
-O Gerenciador de Finanças tem como objetivo permitir o controle de gastos ou de receitas do usuário.
+## :pushpin: Recursos
+- :mag_right:  Explore e gerencie seus custos;
+- :money_with_wings:  Crie uma conta para gerenciar custos diários, mensais e anuais;
+- :bookmark_tabs:  Como usuário, você pode registrar novas formas de pagamento e organizá-las de acordo com suas necessidades;
+- :chart_with_upwards_trend:  Visualize graficamente suas despesas e receitas para melhor tomada de decisão;
 
 ## Login:
 ![](.github/Login.gif)
