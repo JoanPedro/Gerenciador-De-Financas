@@ -57,6 +57,10 @@ Este projeto foi desenvolvido com as seguintes tecnologias:
 - :bookmark_tabs:  Como usuário, você pode registrar novas formas de pagamento e organizá-las de acordo com suas necessidades;
 - :chart_with_upwards_trend:  Visualize graficamente suas despesas e receitas para melhor tomada de decisão;
 
+## Modelagem dos Dados
+
+:page_with_curl: <a href="https://dbdiagram.io/d/5ec7cc3339d18f5553ff9c3e">DB Diagram</a>
+
 ## Login:
 ![](.github/Login.gif)
 
